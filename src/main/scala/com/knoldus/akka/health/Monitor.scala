@@ -2,17 +2,15 @@ package com.knoldus.akka.health
 
 import akka.actor.ActorLogging
 import akka.actor.Actor
-// Imports to help us create Actors, plus logging
 import akka.actor.{ Props, Actor, ActorSystem, ActorLogging }
-// The duration package object extends Ints with some
-// timing functionality
 import scala.concurrent.duration._
+import com.knoldus.akka.util.EventSource
 
 object Monitor {
   case class RateChange(amount: Float)
 }
 
-class Monitor extends Actor with ActorLogging {
+class Monitor extends Actor with ActorLogging with EventSource {
   import Monitor._
   // We need an "ExecutionContext" for the scheduler.  This
   // Actor's dispatcher can serve that purpose.  The
@@ -43,7 +41,7 @@ class Monitor extends Actor with ActorLogging {
   // to update our heartRate
   case object Tick
 
-  def receive = {
+  def monitorReceive: Receive = {
     // Our rate of climb has changed
     case RateChange(amount) =>
       // Truncate the range of 'amount' to [-1, 1]
@@ -57,8 +55,13 @@ class Monitor extends Actor with ActorLogging {
       val tick = System.currentTimeMillis
       heartRate = heartRate + ((tick - lastTick) / 60000.0) * rateOfClimb
       lastTick = tick
+      sendEvent(MonitorUpdate(heartRate))
   }
+
+  def receive = eventSourceReceive orElse monitorReceive
 
   // Kill our ticker when we stop
   override def postStop(): Unit = ticker.cancel
 }
+
+case class MonitorUpdate(rate: Double)
