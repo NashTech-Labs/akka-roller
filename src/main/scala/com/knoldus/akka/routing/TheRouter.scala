@@ -18,7 +18,7 @@ object RoundRobinRouterExample extends App {
   val roundRobinRouter =
     system.actorOf(Props[PrintlnActor].withRouter(BroadcastRouter(5)), "router") // Try with RoundRobin, Random, SmallestMailbox
   1 to 10 foreach {
-    i ⇒ roundRobinRouter ! i
+    i => roundRobinRouter ! i
   }
 
 }
