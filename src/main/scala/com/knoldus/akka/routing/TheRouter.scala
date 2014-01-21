@@ -8,7 +8,7 @@ import akka.routing.BroadcastRouter
 
 class PrintlnActor extends Actor {
   def receive = {
-    case msg ⇒Thread.sleep(500)
+    case msg => Thread.sleep(500)
       println("Received message '%s' in actor %s".format(msg, self.path.name))
   }
 }

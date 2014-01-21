@@ -44,7 +44,7 @@ object TransformationFrontend {
     implicit val timeout = Timeout(5 seconds)
     for (n <- 1 to 120) {
       (frontend ? TransformationJob("hello-" + n)) onSuccess {
-        case result ⇒ println(result)
+        case result => println(result)
       }
       // wait a while until next request,
       // to avoid flooding the console with output
@@ -61,18 +61,18 @@ class TransformationFrontend extends Actor {
   var jobCounter = 0
 
   def receive = {
-    case job: TransformationJob if backends.isEmpty ⇒
+    case job: TransformationJob if backends.isEmpty =>
       sender ! JobFailed("Service unavailable, try again later", job)
 
-    case job: TransformationJob ⇒
+    case job: TransformationJob =>
       jobCounter += 1
       backends(jobCounter % backends.size) forward job
 
-    case BackendRegistration if !backends.contains(sender) ⇒
+    case BackendRegistration if !backends.contains(sender) =>
       context watch sender
       backends = backends :+ sender
 
-    case Terminated(a) ⇒
+    case Terminated(a) =>
       backends = backends.filterNot(_ == a)
   }
 }
