@@ -31,7 +31,7 @@ class MessageSender(messageActor:ActorRef) extends Actor with ActorLogging {
   
 }
 
-case class SendMessage
+case object SendMessage
 
 object Tester extends App {
   
