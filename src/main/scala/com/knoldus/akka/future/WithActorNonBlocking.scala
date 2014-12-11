@@ -19,10 +19,10 @@ object WithActorNonBlocking extends App {
   val f = a1 ? ""
 
   f onSuccess {
-    case m => println("success");a2 ! m
+    case m => println("success"); a2 ! m
   }
-  f onFailure{
-    case m => println("failed");a2 ! m
+  f onFailure {
+    case m => println("failed"); a2 ! m
   }
 
 }
@@ -36,6 +36,6 @@ class A1 extends Actor {
 class A2 extends Actor {
   def receive = {
     case s: String => println("got this")
-    case _ => println("got something else")
+    case _         => println("got something else")
   }
 }

@@ -6,7 +6,7 @@ import akka.actor.{ Actor, Props, ActorSystem }
 class FirstActor extends Actor {
   // The 'Business Logic'
   def receive = {
-    case "Good Morning" => println("Actor: A very good morning to you")
+    case "Good Morning"    => println("Actor: A very good morning to you")
     case "You're terrible" => println("Actor: Seriously ?")
   }
 }

@@ -21,7 +21,7 @@ trait EventSource { this: Actor =>
   // messages for our event listener.  Anything that mixes in
   // our trait will need to compose this receiver
   def eventSourceReceive: Receive = {
-    case RegisterListener(listener) => listeners = listeners :+ listener
+    case RegisterListener(listener)   => listeners = listeners :+ listener
     case UnregisterListener(listener) => listeners = listeners filter { _ != listener }
   }
 }

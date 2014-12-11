@@ -10,7 +10,7 @@ import scala.concurrent.duration.DurationInt
 import akka.actor.ActorSystem
 import akka.actor.ActorRef
 
-class MyActor(watchMe:ActorRef) extends Actor {
+class MyActor(watchMe: ActorRef) extends Actor {
   override val supervisorStrategy =
     OneForOneStrategy(5, 1 minute) {
       case _ => Restart

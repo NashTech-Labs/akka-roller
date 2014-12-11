@@ -11,15 +11,15 @@ import scala.concurrent.Await
 import akka.actor.ActorRef
 
 class MessageActor extends Actor with ActorLogging {
-  
+
   def receive = {
-    case _=> log info (s"Ok, i got it from $sender")
+    case _ => log info (s"Ok, i got it from $sender")
   }
 
 }
 
-class MessageSender(messageActor:ActorRef) extends Actor with ActorLogging {
-  
+class MessageSender(messageActor: ActorRef) extends Actor with ActorLogging {
+
   def receive = {
     case SendMessage => {
       log info (s"The sender to this actor is $sender")
@@ -27,14 +27,13 @@ class MessageSender(messageActor:ActorRef) extends Actor with ActorLogging {
       messageActor.forward("Hi")
     }
   }
-  
-  
+
 }
 
 case object SendMessage
 
 object Tester extends App {
-  
+
   implicit val timeout = Timeout(5.seconds)
   val system = ActorSystem("MessageSimulation")
   val messageActor = system.actorOf(Props[MessageActor])

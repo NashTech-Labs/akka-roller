@@ -18,9 +18,9 @@ class Supervisor extends Actor with ActorLogging {
     OneForOneStrategy(maxNrOfRetries = 10, withinTimeRange = 1 minute) {
       case _: ArithmeticException =>
         println("Resuming the child"); Resume // try Restart here and note the difference in the state
-      case _: NullPointerException => Restart
+      case _: NullPointerException     => Restart
       case _: IllegalArgumentException => Stop
-      case _: Exception => Escalate
+      case _: Exception                => Escalate
     }
 
   def receive: PartialFunction[Any, Unit] = {
@@ -32,14 +32,14 @@ class Child extends Actor {
   var state = 0
 
   override def preRestart(reason: Throwable,
-                            message: Option[Any]) {
+                          message: Option[Any]) {
     println(s"This is the ugly message that killed me = $message")
   }
 
   def receive = {
     case ex: Exception => throw ex
-    case x: Int => state = x
-    case "get" => sender ! state
+    case x: Int        => state = x
+    case "get"         => sender ! state
   }
 }
 
