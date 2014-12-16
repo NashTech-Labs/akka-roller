@@ -7,7 +7,6 @@ function run() {
 run "sbt clean"
 run "sbt compile"
 run "sbt packageBin"
-run "sbt dist"
 
 TODAY=`date +"%F-%H-%M-%S"`
 git log -n 1 --pretty="[%an] %cD %s" > akka-roller-build.txt
