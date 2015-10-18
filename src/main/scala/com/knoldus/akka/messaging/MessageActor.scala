@@ -1,14 +1,9 @@
 package com.knoldus.akka.messaging
 
-import akka.actor.ActorLogging
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
-import com.knoldus.akka.health.OperationTheater
+import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import akka.util.Timeout
+
 import scala.concurrent.duration._
-import scala.concurrent.Await
-import akka.actor.ActorRef
 
 class MessageActor extends Actor with ActorLogging {
 
@@ -32,7 +27,7 @@ class MessageSender(messageActor: ActorRef) extends Actor with ActorLogging {
 
 case object SendMessage
 
-object Tester extends App {
+object TestMessages extends App {
 
   implicit val timeout = Timeout(5.seconds)
   val system = ActorSystem("MessageSimulation")
