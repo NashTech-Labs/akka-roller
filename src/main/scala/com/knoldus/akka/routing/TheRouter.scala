@@ -3,8 +3,6 @@ package com.knoldus.akka.routing
 import akka.actor.Actor
 import akka.actor.ActorSystem
 import akka.actor.Props
-import akka.routing.RoundRobinRouter
-import akka.routing.BroadcastRouter
 import akka.routing.BroadcastPool
 
 class PrintlnActor extends Actor {

@@ -24,6 +24,6 @@ object BadShakespeareanMain {
   def main(args: Array[String]) {
     send("Good Morning")
     send("You're terrible")
-    system.shutdown()
+    system.terminate()
   }
 }
