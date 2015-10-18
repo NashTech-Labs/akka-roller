@@ -1,4 +1,4 @@
-package com.knoldus.akka.messaging
+package com.knoldus.akka.actor
 
 import akka.actor.{Actor, ActorLogging, ActorRef, ActorSystem, Props}
 import akka.util.Timeout
