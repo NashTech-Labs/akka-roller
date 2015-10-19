@@ -24,14 +24,14 @@ object StartParking extends App{
 class Driver extends Actor{
   def receive ={
     case "Request Parking" => Init.attendant ! "LetMePark"
-    case _ => "Driver"
+    case x => "Driver"
   }
 }
 
 class SlotMonitor extends Actor {
   def receive ={
     case "GiveMeEmptySlot" => sender ! 5
-    case _ => "Slot Monitor"
+    case x => "Slot Monitor"
   }
 }
 
@@ -43,7 +43,7 @@ class Attendant extends Actor {
       val parkingSlot = Await.result((Init.slotMonitor ? "GiveMeEmptySlot").mapTo[Int], 5.seconds)
       println(s"parking at ${parkingSlot}")
     }
-    case _ => "Attendant"
+    case x => "Attendant"
   }
 }
 

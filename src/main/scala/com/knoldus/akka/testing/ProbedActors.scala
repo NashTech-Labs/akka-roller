@@ -1,4 +1,4 @@
-package com.knoldus.akka.probes
+package com.knoldus.akka.testing
 
 import akka.actor.Actor
 import akka.actor.ActorRef

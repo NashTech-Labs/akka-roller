@@ -16,7 +16,7 @@ class PrintlnActor extends Actor {
 object RoundRobinRouterExample extends App {
   val system = ActorSystem("FaultTestingSystem")
   val roundRobinRouter =
-    system.actorOf(Props[PrintlnActor].withRouter(BroadcastPool(5)), "router") // Try with RoundRobin, Random, SmallestMailbox
+    system.actorOf(Props[PrintlnActor].withRouter(BroadcastPool(5)), "router") // Try with RoundRobinPool, RandomPool, SmallestMailboxPool etc
   1 to 10 foreach {
     i => roundRobinRouter ! i
   }

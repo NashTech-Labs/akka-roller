@@ -1,4 +1,4 @@
-package com.knoldus.akka.probes
+package com.knoldus.akka.testing
 
 import org.scalatest.Matchers
 import akka.testkit.TestKit
