@@ -1,15 +1,11 @@
 package com.knoldus.akka.future
 
-import akka.actor.Actor
-import akka.actor.ActorSystem
-import akka.actor.Props
+import akka.actor.{Actor, ActorSystem, Props}
 import akka.pattern.ask
 import akka.util.Timeout
+
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.duration._
-import scala.concurrent.Await
-import scala.concurrent.ExecutionContext
-import ExecutionContext.Implicits.global
-import akka.dispatch.OnFailure
 
 object WithActorNonBlocking extends App {
   implicit val timeout = Timeout(5 seconds)
@@ -35,7 +31,7 @@ class A1 extends Actor {
 
 class A2 extends Actor {
   def receive = {
-    case s: String => println("got this")
+    case s: String => println(s"got this $s")
     case _         => println("got something else")
   }
 }
