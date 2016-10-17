@@ -1,13 +1,13 @@
 package com.knoldus.akka.testing
 
-import akka.actor.Actor
-import akka.actor.ActorRef
+import akka.actor.{Actor, ActorRef}
 
 // An annoying Actor that just keeps screaming at us
 class AnnoyingActor(snooper: ActorRef) extends Actor {
   override def preStart() {
     self ! 'send
   }
+
   def receive = {
     case 'send =>
       snooper ! "Hello!!!"
@@ -20,6 +20,7 @@ class NiceActor(snooper: ActorRef) extends Actor {
   override def preStart() {
     snooper ! "Hi"
   }
+
   def receive = {
     case _ =>
   }

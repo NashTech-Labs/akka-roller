@@ -1,12 +1,8 @@
 package com.knoldus.akka.testing
 
-import org.scalatest.Matchers
-import akka.testkit.TestKit
-import org.scalatest.BeforeAndAfterAll
-import org.scalatest.WordSpecLike
-import akka.actor.ActorSystem
-import akka.actor.Props
-import akka.testkit.TestProbe
+import akka.actor.{ActorSystem, Props}
+import akka.testkit.{TestKit, TestProbe}
+import org.scalatest.{BeforeAndAfterAll, Matchers, WordSpecLike}
 
 class ProbedActorTest extends TestKit(ActorSystem("ProbedActorsSpec"))
   with WordSpecLike
