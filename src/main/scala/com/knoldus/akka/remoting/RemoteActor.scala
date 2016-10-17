@@ -1,8 +1,7 @@
 package com.knoldus.akka.remoting
-import com.typesafe.config.ConfigFactory
+
 import akka.actor._
-import java.util.Scanner
-import scala.collection.immutable.HashMap
+import com.typesafe.config.ConfigFactory
 
 object DiscoveryService extends App {
 
@@ -10,7 +9,8 @@ object DiscoveryService extends App {
   val hostAddress: String = java.net.InetAddress.getLocalHost.getHostAddress()
 
   /** These settings can be externalized  */
-  val configString = """akka {
+  val configString =
+  """akka {
   actor {
     provider = "akka.remote.RemoteActorRefProvider"
   }
@@ -30,11 +30,12 @@ object DiscoveryService extends App {
   println(discoveryActor.path)
 
   /**
-   * Discovery actor which would receive registrations and hand out references
-   */
+    * Discovery actor which would receive registrations and hand out references
+    */
   class DiscoveryServiceActor extends Actor {
     def receive = {
       case x => println(s"got the message $x")
     }
   }
+
 }

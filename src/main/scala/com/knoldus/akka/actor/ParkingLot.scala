@@ -16,20 +16,20 @@ object Init {
   val attendant = system.actorOf(Props[Attendant], "Attendant")
 }
 
-object StartParking extends App{
+object StartParking extends App {
   Init.driver ! "Request Parking"
 }
 
 
-class Driver extends Actor{
-  def receive ={
+class Driver extends Actor {
+  def receive = {
     case "Request Parking" => Init.attendant ! "LetMePark"
     case x => println("Driver")
   }
 }
 
 class SlotMonitor extends Actor {
-  def receive ={
+  def receive = {
     case "GiveMeEmptySlot" => sender ! 5
     case x => println("Slot Monitor")
   }
@@ -37,7 +37,8 @@ class SlotMonitor extends Actor {
 
 class Attendant extends Actor {
   implicit val timeout = Timeout(5.seconds)
-  def receive ={
+
+  def receive = {
     case "LetMePark" => {
       println("Got the message to park")
       val parkingSlot = Await.result((Init.slotMonitor ? "GiveMeEmptySlot").mapTo[Int], 5.seconds)

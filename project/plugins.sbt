@@ -1,9 +1,10 @@
 // Enable the sbt eclipse plugin
-addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "2.2.0")
+addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "5.0.1")
 
 // Scala Style Plugin
-addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.3.2")
+addSbtPlugin("org.scalastyle" %% "scalastyle-sbt-plugin" % "0.8.0")
 
-addSbtPlugin("com.github.scct" %% "sbt-scct" % "0.2.1")
+addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.4.0")
 
-addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.1.1")
+//Code Coverage => https://github.com/sbt/jacoco4sbt
+addSbtPlugin("de.johoop" % "jacoco4sbt" % "2.2.0")

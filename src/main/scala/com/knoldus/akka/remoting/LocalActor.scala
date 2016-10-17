@@ -1,18 +1,16 @@
 package com.knoldus.akka.remoting
 
-import com.typesafe.config.ConfigFactory
-import akka.actor.ActorSystem
-import akka.actor.Actor
-import akka.actor.ActorRef
-import akka.actor.Props
 import java.util.Scanner
-import akka.actor.ActorSelection
+
+import akka.actor.{Actor, ActorSelection, ActorSystem, Props}
+import com.typesafe.config.ConfigFactory
 
 object LocalApplication extends App {
   val hostAddress: String = java.net.InetAddress.getLocalHost.getHostAddress()
 
   /** These settings can be externalized  */
-  val configString = """akka {
+  val configString =
+  """akka {
   actor {
     provider = "akka.remote.RemoteActorRefProvider"
   }
@@ -55,4 +53,5 @@ class LocalActor(remote: ActorSelection) extends Actor {
 }
 
 case class Send(message: String)
+
 case class Get(message: String)

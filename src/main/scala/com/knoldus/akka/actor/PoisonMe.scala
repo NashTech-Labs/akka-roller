@@ -1,8 +1,8 @@
 package com.knoldus.akka.actor
 
-import akka.actor.{PoisonPill, Actor, ActorSystem, Props}
+import akka.actor.{Actor, ActorSystem, PoisonPill, Props}
 
-object PoisonPillMe extends App{
+object PoisonPillMe extends App {
   val system = ActorSystem("Now")
   val show = system.actorOf(Props(classOf[PoisonMe]))
   show ! "hey"
@@ -17,6 +17,6 @@ class PoisonMe extends Actor {
   }
 
   override def postStop() = {
-    println (" Aah! , I would seek revenge!")
+    println(" Aah! , I would seek revenge!")
   }
 }
