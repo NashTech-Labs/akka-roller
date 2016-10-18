@@ -13,7 +13,7 @@ object SplitPersonalityRunner extends App {
   show ! "foo"
   show ! "foo"
 
-  system terminate()
+  system terminate() // Comment out this if it is indeterministic behavior
 }
 
 class SplitPersonality extends Actor {

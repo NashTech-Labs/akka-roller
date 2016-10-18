@@ -1,12 +1,17 @@
 package com.knoldus.akka.actor
 
-import akka.actor.{Actor, ActorSystem, PoisonPill, Props}
+import akka.actor.{Actor, ActorSystem, Kill, PoisonPill, Props}
 
 object PoisonPillMe extends App {
   val system = ActorSystem("Now")
   val show = system.actorOf(Props(classOf[PoisonMe]))
-  show ! "hey"
-  show ! PoisonPill // Try Kill
+  show ! "hey1"
+  show ! "hey2"
+  show ! "hey3"
+  show ! "hey4"
+  show ! "hey5"
+  show ! "hey6"
+  show ! Kill // Try Kill
   show ! "hey again"
   system terminate()
 }

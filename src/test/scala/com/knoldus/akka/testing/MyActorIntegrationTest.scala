@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 class MyActorIntegrationTest extends TestKit(ActorSystem("Simple")) with FunSuiteLike with BeforeAndAfterAll with ImplicitSender {
 
-  val echoRef = system.actorOf(TestActors.echoActorProps)
+//  val echoRef = system.actorOf(TestActors.echoActorProps)
   implicit val timeout = Timeout(3.seconds)
 
   override def afterAll {
@@ -17,10 +17,10 @@ class MyActorIntegrationTest extends TestKit(ActorSystem("Simple")) with FunSuit
   }
 
 
-  test("should return back the value that we pass") {
-    echoRef ! "test"
-    expectMsg("test")
-  }
+//  test("should return back the value that we pass") {
+//    echoRef ! "test"
+//    expectMsg("test")
+//  }
 
   val myActorRef = TestActorRef[MyActor]
 

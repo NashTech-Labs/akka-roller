@@ -6,8 +6,9 @@ object StopActing extends App{
  val system = ActorSystem("Now")
   val show = system.actorOf(Props(classOf[PoisonMe]))
   show ! "hey"
-  system stop show
   show ! "hey again"
+  system stop show
+  show ! "hey yet again"
   system terminate()
 
 
