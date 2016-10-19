@@ -4,7 +4,7 @@ import akka.actor.{Props, ActorSystem, Actor}
 
 object StopActing extends App{
  val system = ActorSystem("Now")
-  val show = system.actorOf(Props(classOf[PoisonMe]))
+  val show = system.actorOf(Props(classOf[ShowStopper]))
   show ! "hey"
   show ! "hey again"
   system stop show
