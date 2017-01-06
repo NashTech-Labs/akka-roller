@@ -17,7 +17,7 @@ object Prioritizer extends App {
   show ! 'lowpriority
   show ! 'highpriority
 
-  system terminate()
+//  system terminate()
 }
 
 

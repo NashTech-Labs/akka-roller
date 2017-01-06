@@ -18,7 +18,7 @@ class LifeCycleHooks extends Actor {
 
   @scala.throws[Exception](classOf[Exception])
   override def preRestart(reason: Throwable, message: Option[Any]): Unit = {
-    println(s"Pre RE Start ${this}")
+    println(s"Pre RE Start ${this} with message $message")
     super.preRestart(reason, message)
   }
 

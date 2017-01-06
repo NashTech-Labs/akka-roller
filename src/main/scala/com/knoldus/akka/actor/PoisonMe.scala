@@ -13,7 +13,7 @@ object PoisonPillMe extends App {
   show ! "hey6"
   show ! Kill // Try Kill
   show ! "hey again"
-  system terminate()
+//  system terminate()
 }
 
 class PoisonMe extends Actor {
