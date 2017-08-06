@@ -39,7 +39,7 @@ class Attendant extends Actor {
   def receive = {
     case "LetMePark" =>
       println("Got the message to park")
-      val parkingSlot = Await.result((Init.slotMonitor ? "GiveMeEmptySlot").mapTo[Int], 5.seconds)
+      val parkingSlot = Await.result((Init.slotMonitor ? "GiveMeEmptySlot").mapTo[Int], timeout.duration)
       println(s"parking at $parkingSlot")
     case msg         => println("Attendant")
   }
