@@ -10,13 +10,17 @@ import scala.concurrent.duration._
 object Init {
   val system = ActorSystem("PL")
 
-  val driver = system.actorOf(Props[Driver], "Driver")
-  val slotMonitor = system.actorOf(Props[SlotMonitor], "SlotMonitor")
-  val attendant = system.actorOf(Props[Attendant], "Attendant")
+  val driver = system.actorOf(Driver.props(), "Driver")
+  val attendant = system.actorOf(Attendant.props(), "Attendant")
+  val slotMonitor = system.actorOf(SlotMonitor.props(), "SlotMonitor")
 }
 
 object StartParking extends App {
   Init.driver ! "Request Parking"
+}
+
+object Driver {
+  def props(): Props = Props[Driver]
 }
 
 class Driver extends Actor {
@@ -26,11 +30,19 @@ class Driver extends Actor {
   }
 }
 
+object SlotMonitor {
+  def props(): Props = Props[SlotMonitor]
+}
+
 class SlotMonitor extends Actor {
   def receive = {
     case "GiveMeEmptySlot" => sender ! 5
     case msg               => println("Slot Monitor")
   }
+}
+
+object Attendant {
+  def props(): Props = Props[Attendant]
 }
 
 class Attendant extends Actor {
