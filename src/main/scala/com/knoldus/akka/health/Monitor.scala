@@ -1,17 +1,24 @@
 package com.knoldus.akka.health
 
-import akka.actor.ActorLogging
-import akka.actor.Actor
-import akka.actor.{ Props, Actor, ActorSystem, ActorLogging }
-import scala.concurrent.duration._
+import akka.actor.{Actor, ActorLogging, Props}
 import com.knoldus.akka.util.EventSource
 
+import scala.concurrent.duration._
+
 object Monitor {
+
   case class RateChange(amount: Float)
+
+  case class MonitorUpdate(rate: Double)
+
+  def props(): Props = Props[Monitor]
+
 }
 
 class Monitor extends Actor with ActorLogging with EventSource {
+
   import Monitor._
+
   // We need an "ExecutionContext" for the scheduler.  This
   // Actor's dispatcher can serve that purpose.  The
   // scheduler's work will be dispatched on this Actor's own
@@ -21,8 +28,7 @@ class Monitor extends Actor with ActorLogging with EventSource {
   // The maximum ceiling of our heart in 'feet'
   val maxHeartRate = 200
 
-  // The maximum rate of climb for our heart in
-  // 'feet per minute'
+  // The maximum rate of climb for our heart in 'feet per minute'
   val maxRateOfClimb = 10
 
   // The varying rate of climb depending on the lung capacity
@@ -41,27 +47,21 @@ class Monitor extends Actor with ActorLogging with EventSource {
   // to update our heartRate
   case object Tick
 
-  def monitorReceive: Receive = {
-    // Our rate of climb has changed
-    case RateChange(amount) =>
-      // Truncate the range of 'amount' to [-1, 1]
-      // before multiplying
-      rateOfClimb = amount.min(1.0f).max(-1.0f) *
-        maxRateOfClimb
-      log info (s"monitor changed rate of climb to $rateOfClimb.")
+  // Kill our ticker when we stop
+  override def postStop(): Unit = ticker.cancel
 
-    // Calculate a new heartRate
-    case Tick =>
+  def receive: Receive = eventSourceReceive orElse monitorReceive
+
+  def monitorReceive: Receive = {
+    case RateChange(amount) => // Our rate of climb has changed
+      // Truncate the range of 'amount' to [-1, 1] before multiplying
+      rateOfClimb = amount.min(1.0f).max(-1.0f) * maxRateOfClimb
+      log info s"monitor changed rate of climb to $rateOfClimb."
+    case Tick               => // Calculate a new heartRate
       val tick = System.currentTimeMillis
       heartRate = heartRate + ((tick - lastTick) / 60000.0) * rateOfClimb
       lastTick = tick
       sendEvent(MonitorUpdate(heartRate))
   }
 
-  def receive = eventSourceReceive orElse monitorReceive
-
-  // Kill our ticker when we stop
-  override def postStop(): Unit = ticker.cancel
 }
-
-case class MonitorUpdate(rate: Double)
