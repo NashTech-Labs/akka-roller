@@ -18,6 +18,11 @@ object BuncherApp extends App {
   buncherActor ! Buncher.Queue(2)
   buncherActor ! Buncher.Queue(3)
 
+  Thread.sleep(7000)
+  monitoringActor ! PoisonPill
+
   // buncherActor ! Buncher.Flush
+
+  system.terminate()
 
 }

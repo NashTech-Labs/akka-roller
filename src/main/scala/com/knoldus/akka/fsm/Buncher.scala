@@ -40,7 +40,7 @@ class Buncher extends FSM[State, Data] {
       }
   }
 
-  when(Active, stateTimeout = 20.second) {
+  when(Active, stateTimeout = 5.second) {
     case Event(Flush | StateTimeout, t: Todo) => goto(Idle) using t.copy(queue = Vector.empty)
   }
 
