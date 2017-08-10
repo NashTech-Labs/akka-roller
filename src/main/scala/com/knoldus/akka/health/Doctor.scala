@@ -15,11 +15,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object Doctor extends App {
 
   implicit val timeout = Timeout(5.seconds)
-  val system = ActorSystem("OperationSimulation")
-  val theatre = system.actorOf(Props[OperationTheater], "OperationTheatre")
 
+  val system = ActorSystem("OperationSimulation")
+
+  val theatre = system.actorOf(OperationTheater.props(), "OperationTheatre")
   // Grab the controls
-  val heartLungMachine = Await.result((theatre ? OperationTheater.PassMeTheMachine).mapTo[ActorRef], 5.seconds)
+  val heartLungMachine = Await.result((theatre ? OperationTheater.PassMeTheMachine).mapTo[ActorRef], timeout.duration)
+
   system.scheduler.scheduleOnce(200.millis) {
     heartLungMachine ! HeartLungMachine.PullBack(1f)
   }
