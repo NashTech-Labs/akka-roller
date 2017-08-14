@@ -23,6 +23,6 @@ object BuncherApp extends App {
 
   // buncherActor ! Buncher.Flush
 
-  system.terminate()
+  // system.terminate()
 
 }

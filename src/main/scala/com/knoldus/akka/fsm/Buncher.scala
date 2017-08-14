@@ -28,6 +28,8 @@ class Buncher extends FSM[State, Data] {
 
   startWith(Idle, Uninitialized)
 
+  setTimer("Reminder", "Reminder that I'm running!", 10.seconds, repeat = true)
+
   when(Idle) {
     case Event(SetTarget(ref), Uninitialized) => stay using Todo(ref, Vector.empty)
   }
